@@ -8,7 +8,7 @@ The artifact is tested using Anaconda / Miniconda.
 A complete environment specification is provided.
 
 ```bash
-conda env create -f scripts/env.yml
+conda env create -n vlite -f scripts/env.yml
 conda activate vlite
 ```
 
