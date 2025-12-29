@@ -7,7 +7,7 @@ set -euo pipefail
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 PROJECT_ROOT="$( realpath "${SCRIPT_DIR}/.." )"
 DATABASE_DIR="${PROJECT_ROOT}/database"
-DATASET_DIR="${DATABASE_DIR}datset"
+DATASET_DIR="${DATABASE_DIR}/dataset"
 
 mkdir -p "$DATASET_DIR/wikidump"
 
@@ -93,6 +93,48 @@ download_all() {
 }
 
 ############################################
+# Download preprocessed wikiall
+############################################
+download_preprocessed_wikiall() {
+    echo "[+] Downloading Preprocessed Wikiall Index and query vectors"
+    mkdir -p "${DATABASE_DIR}/wikiall"
+
+    huggingface-cli download --repo-type dataset nobellant215/wikiall ivfpq.index queries.fbin --local-dir ${DATABASE_DIR}/wikiall/
+    python "$PROJECT_ROOT"/database/split_queries.py --dataset wikiall
+}
+
+############################################
+# Download preprocessed orcas 1k
+############################################
+download_preprocessed_orcas_1k() {
+    echo "[+] Downloading Preprocessed ORCAS 1k Index and query vectors"
+    mkdir -p "${DATABASE_DIR}/orcas1k"
+
+    huggingface-cli download --repo-type dataset nobellant215/orcas1k ivfpq.index queries.fbin --local-dir ${DATABASE_DIR}/orcas1k/
+    python "$PROJECT_ROOT"/database/split_queries.py --dataset orcas1k
+}
+
+############################################
+# Download preprocessed orcas 2k
+############################################
+download_preprocessed_orcas_2k() {
+    echo "[+] Downloading Preprocessed ORCAS 2k Index and query vectors"
+    mkdir -p "${DATABASE_DIR}/orcas2k"
+
+    huggingface-cli download --repo-type dataset nobellant215/orcas2k ivfpq.index queries.fbin --local-dir ${DATABASE_DIR}/orcas2k/
+    python "$PROJECT_ROOT"/database/split_queries.py --dataset orcas2k
+}
+
+############################################
+# Download ALL preprocessed datasets
+############################################
+download_all_preprocessed() {
+    download_preprocessed_wikiall
+    download_preprocessed_orcas_1k
+    download_preprocessed_orcas_2k
+}
+
+############################################
 # CLI dispatcher
 ############################################
 ACTION="${1:-all}"
@@ -114,8 +156,21 @@ case "$ACTION" in
         echo "[*] Downloading ALL datasets"
         download_all
         ;;
+    wikiall_pp)
+        download_preprocessed_wikiall
+        ;;
+    orcas1k_pp)
+        download_preprocessed_orcas_1k
+        ;;
+    orcas2k_pp)
+        download_preprocessed_orcas_2k
+        ;;
+    all_pp)
+        echo "[*] Downloading ALL preprocessed datasets"
+        download_all_preprocessed
+        ;;
     *)
-        echo "Usage: $0 {wikidump|orcas|wikiall|test|all}"
+        echo "Usage: $0 {wikidump|orcas|wikiall|test|all|wikiall_pp|orcas1k_pp|orcas2k_pp|all_pp}"
         exit 1
         ;;
 esac

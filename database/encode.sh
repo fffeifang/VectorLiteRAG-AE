@@ -73,11 +73,11 @@ orcas1k() {
         "")
             encode_queries orcas1k/queries
             encode_base    orcas1k/base
-            python split_queries.py --dataset orcas1k
+            python "$PROJECT_ROOT"/database/split_queries.py --dataset orcas1k
             ;;
         queries)
             encode_queries orcas1k/queries
-            python split_queries.py --dataset orcas1k
+            python "$PROJECT_ROOT"/database/split_queries.py --dataset orcas1k
             ;;
         base)
             encode_base orcas1k/base
@@ -100,11 +100,11 @@ orcas2k() {
         "")
             encode_queries orcas2k/queries
             encode_base    orcas2k/base
-            python split_queries.py --dataset orcas2k
+            python "$PROJECT_ROOT"/database/split_queries.py --dataset orcas2k
             ;;
         queries)
             encode_queries orcas2k/queries
-            python split_queries.py --dataset orcas2k
+            python "$PROJECT_ROOT"/database/split_queries.py --dataset orcas2k
             ;;
         base)
             encode_base orcas2k/base
