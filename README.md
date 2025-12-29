@@ -42,6 +42,25 @@ Supported datasets are:
 * orcas1k
 * orcas2k
 
+
+#### Pre-Encoded Vectors and Pre-Built Index
+To save time, we provide preprocessed artifacts (encoded/compressed query vectors and a pre-built IVFPQ index) for each dataset. These are available in the “_pp” variants of the dataset names (e.g., wikiall_pp).
+
+Download the preprocessed package with:
+```
+./database/download.sh wikiall_pp
+```
+This will fetch:
+*	Pre-encoded query vectors, and
+* A pre-indexed ivfpq.index (IVFPQ).
+
+Important: For a full run, you must still execute train.sh for each dataset to build the FastScan-specific indexes used by our pipeline:
+
+```
+./scripts/train.sh wikiall
+```
+(Repeat for orcas1k, orcas2k, etc.; use the matching dataset name.)
+
 #### Encoding and Index Construction 
 For datasets requiring preprocessing (e.g., ORCAS benchmarks):
 ```bash
