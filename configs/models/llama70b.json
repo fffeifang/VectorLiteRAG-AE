@@ -1,0 +1,84 @@
+{
+    "name": "meta-llama/Llama-3.1-70B",
+    "memory_gb": 40.0,
+    "tp_size": 4,
+    "tput_ceiling": {
+        "H100": [
+            {
+                "input": 1024,
+                "output": 256,
+                "values": {
+                    "ngpu=4": 8.0,
+                    "ngpu=8": 17.34
+                }
+            },
+            {
+                "input": 1024,
+                "output": 128,
+                "values": {
+                    "ngpu=8": 22.27
+                }
+            },
+            {
+                "input": 1024,
+                "output": 512,
+                "values": {
+                    "ngpu=8": 12.32
+                }
+            },
+            {
+                "input": 512,
+                "output": 256,
+                "values": {
+                    "ngpu=8": 24.97
+                }
+            },
+            {
+                "input": 2048,
+                "output": 256,
+                "values": {
+                    "ngpu=8": 10.07
+                }
+            }
+        ]
+    },
+    "slo": {
+        "H100": [
+            {
+                "input": 1024,
+                "output": 256,
+                "values": {
+                    "ngpu=8": 0.311
+                }
+            },
+            {
+                "input": 1024,
+                "output": 128,
+                "values": {
+                    "ngpu=8": 0.523
+                }
+            },
+            {
+                "input": 1024,
+                "output": 512,
+                "values": {
+                    "ngpu=8": 0.225
+                }
+            },
+            {
+                "input": 512,
+                "output": 256,
+                "values": {
+                    "ngpu=8": 0.196
+                }
+            },
+            {
+                "input": 2048,
+                "output": 256,
+                "values": {
+                    "ngpu=8": 0.688
+                }
+            }
+        ]
+    }
+}

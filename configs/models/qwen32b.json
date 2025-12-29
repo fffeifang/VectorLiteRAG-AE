@@ -1,0 +1,35 @@
+{
+    "name": "Qwen/Qwen3-32B",
+    "memory_gb": 37.73,
+    "tp_size": 2,
+
+    "tput_ceiling": {
+        "H100": [
+            {
+                "input": 1024,
+                "output": 256,
+                "values": {
+                    "ngpu=8": 38.83,
+                    "ngpu=6": 27.91,
+                    "ngpu=4": 18.91,
+                    "ngpu=2": 9.42
+                }
+            }
+        ]
+    },
+
+    "slo": {
+        "H100": [
+            {
+                "input": 1024,
+                "output": 256,
+                "values": {
+                    "ngpu=8": 0.191,
+                    "ngpu=6": 0.192,
+                    "ngpu=4": 0.223,
+                    "ngpu=2": 0.288
+                }
+            }
+        ]
+    }
+}
