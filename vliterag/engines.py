@@ -144,7 +144,7 @@ class LLMEngine:
             download_dir=model_cache,
             gpu_memory_utilization=self.cfgs.gpu_util,
             tensor_parallel_size=self.cfgs.tp_size,
-            enforce_eager=False,
+            enforce_eager=self.cfgs.eager_mode,
             disable_log_requests=False,
             enable_prefix_caching=False,
             enable_expert_parallel=False,

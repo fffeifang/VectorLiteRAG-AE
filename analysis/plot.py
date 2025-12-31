@@ -197,7 +197,7 @@ def get_slo_attainments(slo, df):
 def plot_slo_attainment(index, model, axes):
 
     MODES = ['cpu', 'all-gpu', 'ded-gpu', 'vlite']    
-    GPU_TYPE = "L40S" if model == "llama8b" else "H100"
+    GPU_TYPE = "L40S"
     INPUT = 1024
     OUTPUT = 256
     TAG = 'main'
@@ -284,7 +284,7 @@ def plot_slo_attainment(index, model, axes):
 def plot_e2e_latency(index, model, axes):
     
     MODES = ['cpu', 'all-gpu', 'ded-gpu', 'vlite']    
-    GPU_TYPE = "L40S" if model == "llama8b" else "H100"
+    GPU_TYPE = "L40S"
     TAG = 'main'
     NUM_GPUS = 8
     
@@ -378,10 +378,10 @@ def plot_figure_11():
 def plot_figure_12():
     
     INDEXES = ['wikiall', 'orcas1k']
-    MODEL = 'qwen32b'
+    MODEL = 'llama8b'
     MODES = ['ded-gpu', 'all-gpu', 'vlite', 'cpu']
-    ARRIVAL_RATES = [19, 32, 38]
-    GPU_TYPE = 'H100'
+    ARRIVAL_RATES = [21, 36, 40]
+    GPU_TYPE = 'L40S'
     NUM_GPUS = 8
     
     CMAP = {
@@ -612,7 +612,7 @@ def plot_figure_15():
             np.linspace(min_aps, max_aps, 5, dtype=int)
         )
 
-        ax_r = ax[2 * i + 1]
+        ax_r = ax[2*i + 1]
         min_aps, max_aps = float('inf'), 0
 
         for j, outlen in enumerate(outlen_lists):
@@ -652,7 +652,7 @@ def plot_figure_15():
     ax[1].set_title('Output Length Ablation', fontsize=10)
     ax[2].set_xlabel('Arrival Rate (req/s)')
     ax[3].set_xlabel('Arrival Rate (req/s)')
-
+    
     handles_input = [
         Line2D([], [], color='#4d7cd1', marker='o', label='CPU Only'),
         Line2D([], [], color="#2C2C2C", label='2048/256', linewidth=2, linestyle='dashed'),
@@ -700,7 +700,7 @@ def plot_figure_15():
 def plot_figure_16():
     """ Ablation study: different search SLO levels """
 
-    GPU_TYPE = "H100"
+    GPU_TYPE = "L40S"
     NUM_GPUS = 8
     INDEX = 'orcas1k'
     MODEL = 'qwen32b'
@@ -772,7 +772,7 @@ def plot_figure_17():
 
     INDEX = 'orcas2k'
     MODEL = 'qwen32b'
-    GPU_TYPE = 'H100'
+    GPU_TYPE = 'L40S'
     MODES = ['cpu', 'all-gpu', 'vlite']
     NUM_GPUS = [4, 6, 8]
     CMAP = {"cpu": "#4d7cd1", "all-gpu": "#76b900", "vlite": "#FF912A"}

@@ -40,6 +40,8 @@ class vLiteConfigs:
     database_dir: Path | str = (PRJ_ROOT / 'database').resolve()
     result_dir: Path | str = field(init=False)
 
+    eager_mode: bool = False
+    
     model_cfg: dict = field(init=False)
     index_cfg: dict = field(init=False)
     llm_workers: int = field(init=False)
@@ -64,6 +66,9 @@ class vLiteConfigs:
                     raise ValueError(f"GPU type not specified")
             else:
                 raise ValueError(f"GPU type not specified")
+
+        if self.gpu_type == 'L40S' and self.model != 'llama8b':
+            self.eager_mode = True
 
         self.resolve_mode_dependencies()
 
@@ -126,6 +131,7 @@ class vLiteConfigs:
     
     def resolve_mode_dependencies(self):
         if self.search_mode == "ded-gpu":
+            # hard coded ann_workers for ded-gpu mode
             if self.index == 'orcas2k' and self.gpu_type == 'L40S':
                 self.ann_workers = 4  
             else:

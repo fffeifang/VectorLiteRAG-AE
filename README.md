@@ -84,7 +84,7 @@ This performs a small CPU-based run on Wiki-All to verify correctness.
 #### Full Evaluation Runs
 ##### L40S Node:
 ```bash
-./scripts/runall_l40s.sh <main|inout|dispatcher>
+./scripts/runall_l40s.sh <main|inout|dispatcher|slo|ngpu>
 ```
 ##### H100 Node:
 ```bash

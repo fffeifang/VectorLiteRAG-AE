@@ -24,11 +24,27 @@ main() {
     index=$1
     echo "[+] Running H100 main experiment"
 
-    run --model qwen32b  --index all --is_profiling --sweep --tag main
-    run --model qwen32b  --index all --search_mode all --sweep --tag main
+    run --model qwen32b \
+        --index all \
+        --is_profiling \
+        --sweep \
+        --tag main
+    run --model qwen32b \
+        --index all \
+        --search_mode all \
+        --sweep \
+        --tag main
 
-    run --model llama70b --index all --is_profiling --sweep --tag main
-    run --model llama70b --index all --search_mode all --sweep --tag main
+    run --model llama70b \
+        --index all \
+        --is_profiling \
+        --sweep \
+        --tag main
+    run --model llama70b \
+        --index all \
+        --search_mode all \
+        --sweep \
+        --tag main
 }
 
 #######################################
@@ -39,8 +55,12 @@ inout_length() {
     outlen=$2
     echo "[+] I/O sweep: input=${inlen}, output=${outlen}"
 
-    run --model llama70b --index orcas2k --sweep \
-        --search_mode all --input_len "$inlen" --output_len "$outlen"
+    run --model llama70b \
+        --index orcas2k \
+        --sweep \
+        --search_mode all \
+        --input_len "$inlen" \
+        --output_len "$outlen"
 }
 
 #######################################
@@ -50,11 +70,16 @@ vary_slo() {
     slo=$1
     echo "[+] SLO sweep: slo=${slo}"
 
-    run --is_profiling --search_slo "$slo" \
-        --model qwen32b --index orcas1k
+    run --is_profiling \
+        --search_slo "$slo" \
+        --model qwen32b \
+        --index orcas1k
 
     run --search_slo "$slo" \
-        --model qwen32b --index orcas1k --sweep --search_mode all
+        --model qwen32b \
+        --index orcas1k \
+        --sweep \
+        --search_mode all
 }
 
 #######################################
@@ -64,11 +89,14 @@ num_gpu() {
     g=$1
     echo "[+] GPU number sweep ngpu=${g}"
 
-    run --is_profiling --num_gpus "$g" \
-        --model qwen32b --index orcas2
+    run --is_profiling \
+        --num_gpus "$g" \
+        --model qwen32b \
+        --index orcas2k
 
     run --num_gpus "$g" \
-        --model qwen32b --index orcas2k
+        --model qwen32b \
+        --index orcas2k
 }
 
 #######################################

@@ -50,8 +50,29 @@ main() {
         --is_profiling \
         --sweep \
         --tag main
-
     run --model llama8b \
+        --index all \
+        --search_mode all \
+        --sweep \
+        --tag main
+
+    run --model qwen32b \
+        --index all \
+        --is_profiling \
+        --sweep \
+        --tag main
+    run --model qwen32b \
+        --index all \
+        --search_mode all \
+        --sweep \
+        --tag main
+
+    run --model llama70b \
+        --index all \
+        --is_profiling \
+        --sweep \
+        --tag main
+    run --model llama70b \
         --index all \
         --search_mode all \
         --sweep \
@@ -94,6 +115,49 @@ inout_length() {
         --search_mode all \
         --input_len "$inlen" \
         --output_len "$outlen"
+
+    run --model llama70b \
+        --index orcas2k \
+        --sweep \
+        --search_mode all \
+        --input_len "$inlen" \
+        --output_len "$outlen"
+}
+
+#######################################
+# vary SLO
+#######################################
+vary_slo() {
+    slo=$1
+    echo "[+] SLO sweep: slo=${slo}"
+
+    run --is_profiling \
+        --search_slo "$slo" \
+        --model qwen32b \
+        --index orcas1k
+
+    run --search_slo "$slo" \
+        --model qwen32b \
+        --index orcas1k \
+        --sweep \
+        --search_mode all
+}
+
+#######################################
+# vary number of GPUs
+#######################################
+num_gpu() {
+    g=$1
+    echo "[+] GPU number sweep ngpu=${g}"
+
+    run --is_profiling \
+        --num_gpus "$g" \
+        --model qwen32b \
+        --index orcas2k
+
+    run --num_gpus "$g" \
+        --model qwen32b \
+        --index orcas2k
 }
 
 #######################################
@@ -122,10 +186,22 @@ case "$OPTION" in
         dispatcher 32
         dispatcher 41
         ;;
+    
+    slo)
+        vary_slo 100
+        vary_slo 150
+        vary_slo 200
+        vary_slo 250
+        ;;
+
+    ngpu)
+        num_gpu 4
+        num_gpu 6
+        ;;
 
     *)
         echo "Unknown option: $OPTION"
-        echo "Usage: $0 {test|main|inout|dispatcher}"
+        echo "Usage: $0 {test|main|inout|dispatcher|slo|ngpus}"
         exit 1
         ;;
 esac
